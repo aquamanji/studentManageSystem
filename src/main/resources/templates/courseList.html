@@ -47,8 +47,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">课程管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">发表课程</a></dd>
-                        <dd><a href="javascript:;">发表删除</a></dd>
+                        <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课程</a></dd>
+                        <dd><a href="javascript:;">课程发布</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -60,40 +60,38 @@
         <div style="padding: 15px;">
             <table class="table table-bordered">
                 <tr>
-                    <td>学号</td>
-                    <td>姓名</td>
-                    <td>性别</td>
-                    <td>生日</td>
-                    <td>民族</td>
-                    <td>班级号</td>
-                    <td>操作</td>
+                    <td>课程号</td>
+                    <td>课程名</td>
+                    <td>学分</td>
+                    <td>课时</td>
+                    <td>先导课程</td>
+                    <td>是否正在选课中</td>
+                    <td>余量</td>
+                    <td>老师</td>
                 </tr>
-                <tr th:each="list : ${studentList}">
-                    <td th:text="${list.stuNo}"></td>
-                    <td th:text="${list.stuName}"></td>
-                    <td th:if="${list.sex}==1">男</td>
-                    <td th:if="${list.sex}==2">女</td>
-                    <td>
-                        <span th:text="${list.birthday}"></span>
-                    </td>
-                    <td th:text="${list.nat}"></td>
-                    <td th:text="${list.classNo}"></td>
-                    <td>
-                        <a th:href="@{/delete/{stuNo}(stuNo=${list.stuNo})}">删除</a>
-                    </td>
+                <tr th:each="list : ${CourseList}">
+                    <td th:text="${list.courseNo}"></td>
+                    <td th:text="${list.courseName}"></td>
+                    <td th:text="${list.credit}"></td>
+                    <td th:text="${list.courseHour}"></td>
+
+                    <td th:text="${list.priorCourse}"></td>
+                    <td th:text="${list.ischoosing}"></td>
+                    <td th:text="${list.volume}"></td>
+                    <td th:text="${list.teachno}"></td>
                 </tr>
                 <tr>
                     <td>
-                        <a th:href="@{/deleteStu/{pageNum}(pageNum=1)}">首页</a>
+                        <a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">首页</a>
                     </td>
                     <td th:if="${pageNum}!=1">
-                        <a th:href="@{/deleteStu/{pageNum}(pageNum=${pageNum-1})}">上一页</a>
+                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${pageNum - 1})}">上一页</a>
                     </td>
                     <td th:if="${pageNum}!=${totalPage}">
-                        <a th:href="@{/deleteStu/{pageNum}(pageNum=${pageNum+1})}">下一页</a>
+                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${pageNum + 1})}">下一页</a>
                     </td>
                     <td>
-                        <a th:href="@{/deleteStu/{pageNum}(pageNum=${totalPage})}">尾页</a>
+                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${totalPage})}">尾页</a>
                     </td>
                     <td>
                         第<span th:text="${pageNum}"></span>页/<span th:text="${totalPage}"></span>页

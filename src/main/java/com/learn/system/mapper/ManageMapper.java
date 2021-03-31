@@ -48,4 +48,7 @@ public interface ManageMapper {
     //插入老师信息：
     void insertTeacherInfo(Teach teach);
 
+
+
+
 }

@@ -59,7 +59,7 @@ public class ManageController {
     @RequestMapping("/toInsertStuInfo")
     public String toInsertStuInfo(Model model, HttpSession session){
         model.addAttribute("userType", session.getAttribute("userType"));
-        model.addAttribute("userName", session.getAttribute("stuNo"));
+        model.addAttribute("usFerName", session.getAttribute("stuNo"));
         List<String> str = new ArrayList<String>();
         str = manageService.queryAllClassNo();      //获取所有的班级号
         model.addAttribute("classNo", str);
