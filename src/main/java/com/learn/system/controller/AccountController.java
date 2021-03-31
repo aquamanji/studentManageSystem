@@ -2,7 +2,9 @@ package com.learn.system.controller;
 
 import com.learn.system.pojo.Account;
 import com.learn.system.pojo.Student;
+import com.learn.system.pojo.Teach;
 import com.learn.system.service.serviceImpl.AccountServiceImpl;
+import com.learn.system.service.serviceImpl.ManageServiceImpl;
 import com.learn.system.service.serviceImpl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.lang.annotation.Target;
 
 @Controller
 public class AccountController {
@@ -21,6 +24,8 @@ public class AccountController {
     AccountServiceImpl accountService;
     @Autowired
     StudentServiceImpl studentService;
+    @Autowired
+    ManageServiceImpl manageService;
 
     //登录操作
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -52,7 +57,7 @@ public class AccountController {
                 Student student = new Student();
                 student = studentService.selectStu(stuNo);
                 double avg = studentService.calStuAverage(stuNo);       //计算平均分
-                int sumCredit = studentService.calStuCredit(stuNo);
+                Integer sumCredit = studentService.calStuCredit(stuNo);
                 model.addAttribute("stu", student);     //学生信息
                 model.addAttribute("avg", avg);         //平均分
                 model.addAttribute("sumCredit", sumCredit); //总学分
@@ -75,14 +80,24 @@ public class AccountController {
         return mv;
     }
 
+
+    //帮助跳转回首页
+    @RequestMapping(value="/toindex", method = RequestMethod.GET)
+    public ModelAndView toindex(ModelAndView mv){
+        mv.setViewName("index");   //不能用forward或者redirect
+        return mv;
+    }
+
     //注册方法
     @RequestMapping(value="/regist", method = RequestMethod.POST)
     public String regist(@RequestParam("username")String username,
                          @RequestParam("password")String password,
                          @RequestParam("authority")String authority,
+                         @RequestParam("teachname")String teachname,
                          Model model){
         Integer isLegal = accountService.checkIsStuLegal(username);
         Account acc = new Account();
+        Teach teach = new Teach();
         if(authority.equals("2-教师")){       //如果是教师账号注册则直接注册成功就行
             //查看这个账号是否被注册过，如果为0就是没有被注册过
             Integer exist = accountService.checkUsername(username);
@@ -90,7 +105,11 @@ public class AccountController {
                 acc.setUsername(username);
                 acc.setPassword(password);
                 acc.setAuthority(2);
+                teach.setTeano(username);
+                teach.setTeaname(teachname);
+                manageService.insertTeacherInfo(teach);
                 accountService.insertAccount(acc);
+
                 return "index";
             } else {                //账号已经存在，不可以注册
                 model.addAttribute("msg", "账号已经存在，请换一个账号注册");

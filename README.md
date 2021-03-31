@@ -34,6 +34,9 @@
 | credit      | 学分     | int         | not null    |
 | courseHour  | 课时数   | int         | not null    |
 | priorCourse | 先修课程 | varchar(20) | not null    |
+| ischoosing | 是正在开课 | int | not null    |
+| volume | 容量 | int | not null    |
+
 
 #### 成绩表score
 
@@ -43,7 +46,7 @@
 | courseNo | 课程号   | char(10) | primary key |
 | term     | 开课学期 | char(10) | not null    |
 | score    | 成绩     | int      | not null    |
-
+| TeaNo    | 老师编号 | varchar(255) | primary key |
 #### 账号表account
 
 | 字段名    | 描述     | 数据类型    | 约束                         |
@@ -52,6 +55,19 @@
 | username  | 用户名   | varchar(20) | not null                     |
 | password  | 密码     | varchar(20) | not null                     |
 | authority | 用户权限 | int         | not null                     |
+
+
+
+### 老师表teach：
+
+
+| 字段名   | 描述     | 数据类型     | 约束        |
+| -------- | -------- | ------------ | ----------- |
+| TeaNo    | 老师编号 | varchar(255) | primary key |
+| TeaName  | 姓名     | varchar(255) | not null    |
+
+
+
 
 #### 详细建表sql
 

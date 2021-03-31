@@ -7,16 +7,26 @@ public class Score {
     String term;
     int score;
     String courseName;      //这是连接课程表的课程名
+    String teaname;
 
-    public Score() {
+    public String getTeaname() {
+        return teaname;
     }
 
-    public Score(String stuNo, String courseNo, String term, int score, String courseName) {
+    public void setTeaname(String teaname) {
+        this.teaname = teaname;
+    }
+
+    public Score(String stuNo, String courseNo, String term, int score, String courseName, String teaname) {
         this.stuNo = stuNo;
         this.courseNo = courseNo;
         this.term = term;
         this.score = score;
         this.courseName = courseName;
+        this.teaname = teaname;
+    }
+
+    public Score() {
     }
 
     public String getStuNo() {
@@ -67,6 +77,7 @@ public class Score {
                 ", term='" + term + '\'' +
                 ", score=" + score +
                 ", courseName='" + courseName + '\'' +
+                ", teaname='" + teaname + '\'' +
                 '}';
     }
 }

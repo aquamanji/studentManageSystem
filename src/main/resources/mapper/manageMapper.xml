@@ -22,6 +22,11 @@
                             (#{stuNo}, #{stuName}, #{sex}, #{birthday}, #{nat}, #{classNo})
     </insert>
 
+    <insert id="insertTeacherInfo" parameterType="Teach">
+        insert into teach (teano,teaname) values
+                            (#{teano}, #{teaname})
+    </insert>
+
     <select id="queryAllClassNo" resultType="String">
         select classNo from class
     </select>

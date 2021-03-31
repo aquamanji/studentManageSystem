@@ -2,6 +2,7 @@ package com.learn.system.service;
 
 import com.learn.system.pojo.ClassInfo;
 import com.learn.system.pojo.Student;
+import com.learn.system.pojo.Teach;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface ManageService {
 
     //插入学生信息
     void insertStudentInfo(Student student);
+
+    //插入老师信息：
+    void insertTeacherInfo(Teach teach);
 
     //查询所有的班级号，以便学生信息插入
     List<String> queryAllClassNo();

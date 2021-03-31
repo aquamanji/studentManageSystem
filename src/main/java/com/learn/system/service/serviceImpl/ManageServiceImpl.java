@@ -3,6 +3,7 @@ package com.learn.system.service.serviceImpl;
 import com.learn.system.mapper.ManageMapper;
 import com.learn.system.pojo.ClassInfo;
 import com.learn.system.pojo.Student;
+import com.learn.system.pojo.Teach;
 import com.learn.system.service.ManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,11 @@ public class ManageServiceImpl implements ManageService {
     public void insertStudentInfo(Student student) {    //这个要改
         manageMapper.updateClassNum(student.getClassNo());
         manageMapper.insertStudentInfo(student);
+    }
+
+    @Override
+    public void insertTeacherInfo(Teach teach) {
+        manageMapper.insertTeacherInfo(teach);
     }
 
     @Override

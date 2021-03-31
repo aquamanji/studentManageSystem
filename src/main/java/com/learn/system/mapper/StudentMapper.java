@@ -21,13 +21,13 @@ public interface StudentMapper {
     List<Student> selectAllStu();
 
     //返回一个学生所有课程成绩的总和
-    int calStuSum(String stuNo);
+    Integer calStuSum(String stuNo);
 
     //返回一个学生有成绩的课程数
-    int getScoreNum(String stuNo);
+    Integer getScoreNum(String stuNo);
 
     //计算某个学生已修学分
-    int calStuCredit(String stuNo);
+    Integer calStuCredit(String stuNo);
 
     //查找学生有成绩的所有课程
     List<Course> queryAllCourse(String stuNo);

@@ -31,7 +31,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public double calStuAverage(String stuNo) {
         Integer sum = studentMapper.calStuSum(stuNo);       //计算学生获得的总分
-        Integer num = studentMapper.getScoreNum(stuNo);         //计算学生通过的考试数
+        Integer num = studentMapper.getScoreNum(stuNo);
+        if(sum == null || num == null){
+            return 0;
+        }
+        //计算学生通过的考试数
         double avg = sum/num;
         //四舍五入保留两位小数
         BigDecimal b = new BigDecimal(avg);
@@ -40,7 +44,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int calStuCredit(String stuNo) {
+    public Integer calStuCredit(String stuNo) {
         return studentMapper.calStuCredit(stuNo);
     }
 

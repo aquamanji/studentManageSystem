@@ -2,6 +2,7 @@ package com.learn.system.mapper;
 
 import com.learn.system.pojo.ClassInfo;
 import com.learn.system.pojo.Student;
+import com.learn.system.pojo.Teach;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -43,5 +44,8 @@ public interface ManageMapper {
 
     //通过学号找班级号
     String queryClassNoByStuNo(String stuNo);
+
+    //插入老师信息：
+    void insertTeacherInfo(Teach teach);
 
 }

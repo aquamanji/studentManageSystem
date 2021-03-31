@@ -18,7 +18,7 @@ public interface StudentService {
     double calStuAverage(String stuNo);
 
     //计算某个学生已修学分
-    int calStuCredit(String stuNo);
+    Integer calStuCredit(String stuNo);
 
     //查找学生有成绩的所有课程
     List<Course> queryAllCourse(String stuNo);

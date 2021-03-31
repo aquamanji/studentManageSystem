@@ -1,140 +1,156 @@
-use scoreDB;
+/*
+Navicat MySQL Data Transfer
 
-/*  删除数据库中所有的表 */
-SELECT concat('DROP TABLE IF EXISTS' , table_name, ';')
-FROM information_schema.tables
-WHERE table_schema = 'scoreDB';
+Source Server         : localhost_3306
+Source Server Version : 80023
+Source Host           : localhost:3306
+Source Database       : scoredb
 
+Target Server Type    : MYSQL
+Target Server Version : 80023
+File Encoding         : 65001
 
-/* 班级信息表class */
-drop table IF EXISTS class;
- CREATE TABLE class(
-    classNo CHAR(10) PRIMARY KEY ,
-    className VARCHAR (20) NOT NULL,
-    institute VARCHAR (20) NOT NULL,
-    grade INT NOT NULL,
-    classNum INT NOT NULL
- );
+Date: 2021-03-31 17:08:01
+*/
 
-/*  插入班级信息 */
-INSERT INTO class (classNo, className, institute, grade, classNum) VALUES
-                          ('20011', '通信201','通信学院',1, 1);
+SET FOREIGN_KEY_CHECKS=0;
 
- /* 学生信息表student */
- /* sex：0-未知 1-男 2-女 */
-drop table IF EXISTS student;
-CREATE TABLE student(
-    stuNo CHAR(10) PRIMARY KEY,
-    stuName VARCHAR (20) NOT NULL,
-    sex INT NOT NULL,
-    birthday DATE NOT NULL,
-    nat VARCHAR(20) NOT NULL,
-    classNo VARCHAR (20) NOT NULL
-);
+-- ----------------------------
+-- Table structure for account
+-- ----------------------------
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `authority` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/*  插入学生信息 */
-INSERT INTO student (stuNo, stuName, sex, birthday, nat, classNo) VALUES
-                          ('20066','王兰花',2,'2000-01-01','汉族','20011');
-INSERT INTO student (stuNo, stuName, sex, birthday, nat, classNo) VALUES
-                          ('20068','李子豪',1,'2000-06-06','汉族','20011');
-INSERT INTO student (stuNo, stuName, sex, birthday, nat, classNo) VALUES
-                          ('20088','苏梅',2,'2000-02-12','汉族','20011');
+-- ----------------------------
+-- Records of account
+-- ----------------------------
+INSERT INTO `account` VALUES ('1', '20066', '123456', '1');
+INSERT INTO `account` VALUES ('2', '20068', '666666', '1');
+INSERT INTO `account` VALUES ('3', '20088', '666666', '1');
+INSERT INTO `account` VALUES ('4', 'gong-001', '666666', '2');
+INSERT INTO `account` VALUES ('5', 'smw', '123456', '2');
+INSERT INTO `account` VALUES ('6', 'ls', '123456', '2');
+INSERT INTO `account` VALUES ('7', '1111', '123456', '1');
+INSERT INTO `account` VALUES ('8', 'dxw', '123456', '2');
 
-/*  重新计算班级人数 */
-UPDATE class SET classNum = (select count(*) from  student where classNo='20011')
-                            where classNo='20011';
+-- ----------------------------
+-- Table structure for class
+-- ----------------------------
+DROP TABLE IF EXISTS `class`;
+CREATE TABLE `class` (
+  `classNo` char(10) NOT NULL,
+  `className` varchar(20) NOT NULL,
+  `institute` varchar(20) NOT NULL,
+  `grade` int NOT NULL,
+  `classNum` int NOT NULL,
+  PRIMARY KEY (`classNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- ----------------------------
+-- Records of class
+-- ----------------------------
+INSERT INTO `class` VALUES ('20011', '通信201', '通信学院', '1', '4');
 
+-- ----------------------------
+-- Table structure for course
+-- ----------------------------
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course` (
+  `courseNo` char(10) NOT NULL,
+  `courseName` varchar(20) NOT NULL,
+  `credit` int NOT NULL,
+  `courseHour` int NOT NULL,
+  `priorCourse` varchar(20) NOT NULL,
+  `ischoosing` int NOT NULL,
+  `volume` int NOT NULL,
+  `teachno` varchar(255) NOT NULL,
+  PRIMARY KEY (`courseNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/*  课程信息表course */
-drop TABLE  IF EXISTS course;
-CREATE TABLE course(
-    courseNo CHAR(10) PRIMARY KEY,
-    courseName VARCHAR (20) NOT NULL,
-    credit INT NOT NULL,
-    courseHour INT NOT NULL,
-    priorCourse VARCHAR (20) NOT NULL
-);
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+INSERT INTO `course` VALUES ('ke-001', '高等数学', '4', '60', 'null', '0', '0', 'smw');
+INSERT INTO `course` VALUES ('ke-002', '线性代数', '4', '60', 'null', '0', '0', 'smw');
+INSERT INTO `course` VALUES ('ke-003', '通信原理', '4', '60', '高等数学', '0', '0', 'smw');
+INSERT INTO `course` VALUES ('ke-004', '电子技术基础', '4', '60', '高等数学', '0', '0', 'smw');
+INSERT INTO `course` VALUES ('ke-005', '电工学', '4', '60', '高等数学', '0', '0', 'smw');
+INSERT INTO `course` VALUES ('ke-006', '自动控制原理', '4', '60', '高等数学', '0', '0', 'smw');
 
-/*  插入课程信息 */
-INSERT INTO course (courseNo, courseName, credit, courseHour, priorCourse) VALUES
-                    ('ke-001','高等数学',4, 60, 'null');
-INSERT INTO course (courseNo, courseName, credit, courseHour, priorCourse) VALUES
-                    ('ke-002','线性代数',4, 60, 'null');
-INSERT INTO course (courseNo, courseName, credit, courseHour, priorCourse) VALUES
-                    ('ke-003','通信原理',4, 60, '高等数学');
-INSERT INTO course (courseNo, courseName, credit, courseHour, priorCourse) VALUES
-                    ('ke-004','电子技术基础',4, 60, '高等数学');
-INSERT INTO course (courseNo, courseName, credit, courseHour, priorCourse) VALUES
-                    ('ke-005','电工学',4, 60, '高等数学');
-INSERT INTO course (courseNo, courseName, credit, courseHour, priorCourse) VALUES
-                    ('ke-006','自动控制原理',4, 60, '高等数学');
+-- ----------------------------
+-- Table structure for score
+-- ----------------------------
+DROP TABLE IF EXISTS `score`;
+CREATE TABLE `score` (
+  `stuNo` char(10) NOT NULL,
+  `courseNo` char(10) NOT NULL,
+  `term` varchar(10) NOT NULL,
+  `score` int NOT NULL,
+  PRIMARY KEY (`stuNo`,`courseNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/*  成绩表score */
-drop TABLE  IF EXISTS score;
-CREATE TABLE score(
-    stuNo CHAR(10) ,
-    courseNo CHAR(10) ,
-    term VARCHAR (10) NOT NULL,
-    score INT NOT NULL,
-    PRIMARY KEY (stuNo, courseNo)
-);
+-- ----------------------------
+-- Records of score
+-- ----------------------------
+INSERT INTO `score` VALUES ('20066', 'ke-001', '2020年春季学期', '80');
+INSERT INTO `score` VALUES ('20066', 'ke-002', '2020年春季学期', '88');
+INSERT INTO `score` VALUES ('20066', 'ke-003', '2020年春季学期', '88');
+INSERT INTO `score` VALUES ('20066', 'ke-004', '2020年春季学期', '88');
+INSERT INTO `score` VALUES ('20066', 'ke-005', '2020年春季学期', '88');
+INSERT INTO `score` VALUES ('20066', 'ke-006', '2020年春季学期', '88');
+INSERT INTO `score` VALUES ('20068', 'ke-001', '2020年春季学期', '60');
+INSERT INTO `score` VALUES ('20068', 'ke-002', '2020年春季学期', '68');
+INSERT INTO `score` VALUES ('20068', 'ke-003', '2020年春季学期', '68');
+INSERT INTO `score` VALUES ('20068', 'ke-004', '2020年春季学期', '68');
+INSERT INTO `score` VALUES ('20068', 'ke-005', '2020年春季学期', '68');
+INSERT INTO `score` VALUES ('20068', 'ke-006', '2020年春季学期', '68');
+INSERT INTO `score` VALUES ('20088', 'ke-001', '2020年春季学期', '90');
+INSERT INTO `score` VALUES ('20088', 'ke-002', '2020年春季学期', '98');
+INSERT INTO `score` VALUES ('20088', 'ke-003', '2020年春季学期', '98');
+INSERT INTO `score` VALUES ('20088', 'ke-004', '2020年春季学期', '98');
+INSERT INTO `score` VALUES ('20088', 'ke-005', '2020年春季学期', '98');
+INSERT INTO `score` VALUES ('20088', 'ke-006', '2020年春季学期', '98');
 
-/*  插入成绩信息 */
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20066', 'ke-001', '2020年春季学期', 80);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20066', 'ke-002', '2020年春季学期', 88);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20066', 'ke-003', '2020年春季学期', 88);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20066', 'ke-004', '2020年春季学期', 88);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20066', 'ke-005', '2020年春季学期', 88);
-                  INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20066', 'ke-006', '2020年春季学期', 88);
+-- ----------------------------
+-- Table structure for student
+-- ----------------------------
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE `student` (
+  `stuNo` char(10) NOT NULL,
+  `stuName` varchar(20) NOT NULL,
+  `sex` int NOT NULL,
+  `birthday` date NOT NULL,
+  `nat` varchar(20) NOT NULL,
+  `classNo` varchar(20) NOT NULL,
+  PRIMARY KEY (`stuNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- ----------------------------
+-- Records of student
+-- ----------------------------
+INSERT INTO `student` VALUES ('1111', 'asd', '1', '1999-09-14', '汉', '20011');
+INSERT INTO `student` VALUES ('20066', '王兰花', '2', '2000-01-01', '汉族', '20011');
+INSERT INTO `student` VALUES ('20068', '李子豪', '1', '2000-06-06', '汉族', '20011');
+INSERT INTO `student` VALUES ('20088', '苏梅', '2', '2000-02-12', '汉族', '20011');
 
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20068', 'ke-001', '2020年春季学期', 60);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20068', 'ke-002', '2020年春季学期', 68);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20068', 'ke-003', '2020年春季学期', 68);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20068', 'ke-004', '2020年春季学期', 68);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20068', 'ke-005', '2020年春季学期', 68);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20068', 'ke-006', '2020年春季学期', 68);
+-- ----------------------------
+-- Table structure for teach
+-- ----------------------------
+DROP TABLE IF EXISTS `teach`;
+CREATE TABLE `teach` (
+  `teano` varchar(255) NOT NULL,
+  `teaname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`teano`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20088', 'ke-001', '2020年春季学期', 90);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20088', 'ke-002', '2020年春季学期', 98);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20088', 'ke-003', '2020年春季学期', 98);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20088', 'ke-004', '2020年春季学期', 98);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20088', 'ke-005', '2020年春季学期', 98);
-INSERT INTO score (stuNo, courseNo, term, score) VALUES
-                  ('20088', 'ke-006', '2020年春季学期', 98);
-
-/*  用户表user */
-/*  authority是权限字段，共设两个值 1-学生 2-教师 */
-drop TABLE IF EXISTS account;
-CREATE TABLE account(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(20) NOT NULL,
-    password VARCHAR(20) NOT NULL,
-    authority INT NOT NULL
-);
-/*  用户表插入值 */
-INSERT INTO account (username, password, authority) VALUES ('20066', '666666', 1);
-INSERT INTO account (username, password, authority) VALUES ('20068', '666666', 1);
-INSERT INTO account (username, password, authority) VALUES ('20088', '666666', 1);
-INSERT INTO account (username, password, authority) VALUES ('gong-001', '666666', 2);
-
-
-
+-- ----------------------------
+-- Records of teach
+-- ----------------------------
+INSERT INTO `teach` VALUES ('dxw', '定西为');
+INSERT INTO `teach` VALUES ('smw', '邵明为');

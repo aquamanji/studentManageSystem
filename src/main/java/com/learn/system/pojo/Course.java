@@ -7,17 +7,48 @@ public class Course {
     int credit;
     int courseHour;
     String priorCourse;
+    int ischoosing;
+    int volume;
+    String teachno;
 
-    public Course() {
-    }
-
-    public Course(String courseNo, String courseName, int credit, int courseHour, String priorCourse) {
+    public Course(String courseNo, String courseName, int credit, int courseHour, String priorCourse, int ischoosing, int volume, String teachno) {
         this.courseNo = courseNo;
         this.courseName = courseName;
         this.credit = credit;
         this.courseHour = courseHour;
         this.priorCourse = priorCourse;
+        this.ischoosing = ischoosing;
+        this.volume = volume;
+        this.teachno = teachno;
     }
+
+    public String getTeachno() {
+        return teachno;
+    }
+
+    public void setTeachno(String teachno) {
+        this.teachno = teachno;
+    }
+
+    public int getIschoosing() {
+        return ischoosing;
+    }
+
+    public void setIschoosing(int ischoosing) {
+        this.ischoosing = ischoosing;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
+    public Course() {
+    }
+
 
     public String getCourseNo() {
         return courseNo;
@@ -67,6 +98,8 @@ public class Course {
                 ", credit=" + credit +
                 ", courseHour=" + courseHour +
                 ", priorCourse='" + priorCourse + '\'' +
+                ", ischoosing=" + ischoosing +
+                ", volume=" + volume +
                 '}';
     }
 }

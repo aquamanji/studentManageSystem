@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>查询培养计划</title>
-
-    <!---->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 管理系统大布局 - Layui</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!---->
-
-    <!-- 新 Bootstrap4 核心 CSS 文件 -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="/js/jquery-3.2.1.js"></script>
-
-    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
-    <script src="/js/bootstrap.bundle.js"></script>
-
-    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
-    <script src="/js/bootstrap.js"></script>
 </head>
-<body>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">学生管理系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <span th:text="${userName}"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/toindex">退了</a></li>
+        </ul>
+    </div>
 
-<!--如果权限是学生的话显示这个container-->
-<div class="container" >
-    <!--这是顶部信息栏-->
-    <div class="row" th:if="${userType}==1">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <span th:text="${userName}"></span>你好，
-            <span>你的权限是学生</span>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">我的</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/getStuInfo">个人信息</a></dd>
+                        <dd><a th:href="@{/checkPlan/{pageNum}(pageNum=1)}">我的课表</a></dd>
+                        <dd><a th:href="@{/getScore/{pageNum}(pageNum=1)}">我的成绩单</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">选课</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">选课一</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-            <!--这里是面包屑导航-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/getStuInfo">查看个人信息</a></li>
-                <li class="breadcrumb-item"><a th:href="@{/checkPlan/{pageNum}(pageNum=1)}">查看培养计划</a></li>
-                <li class="breadcrumb-item active">查看成绩单</li>
-            </ol>
+    <div class="layui-body">
 
-            <!--这里写选修的课程信息-->
+        <div style="padding: 15px;">
             <table class="table table-bordered">
                 <tr >
                     <td>学号</td>
@@ -50,6 +64,7 @@
                     <td>开课学期</td>
                     <td>分数</td>
                     <td>课程名</td>
+                    <td>老师名</td>
                 </tr>
                 <tr th:each="list : ${scoreList}">
                     <td th:text="${list.stuNo}"></td>
@@ -57,6 +72,7 @@
                     <td th:text="${list.term}"></td>
                     <td th:text="${list.score}"></td>
                     <td th:text="${list.courseName}"></td>
+                    <td th:text="${list.teaname}"></td>
                 </tr>
 
                 <!--下面是进行翻页的控件-->
@@ -78,14 +94,18 @@
                     </td>
                 </tr>
             </table>
-
-
         </div>
-        <div class="col-md-1"></div>
     </div>
 
 </div>
 
+<script src="../layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
 
+    });
+</script>
 </body>
 </html>

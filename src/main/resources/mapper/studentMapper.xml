@@ -36,9 +36,12 @@
                score.courseNo as courseNo,
                score.term as term,
                score.score as score,
-               course.courseName as courseName
+               course.courseName as courseName,
+               teach.teaname as teaname
         from score left join course on
-               score.courseNo = course.courseNo
+            score.courseNo = course.courseNo
+                   left join teach
+                             on course.teachno = teach.teano
         where score.stuNo = #{stuNo}
     </select>
 </mapper>

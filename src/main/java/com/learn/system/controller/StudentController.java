@@ -30,7 +30,7 @@ public class StudentController {
         Student student = new Student();
         student = studentService.selectStu(stuNo);
         double avg = studentService.calStuAverage(stuNo);       //计算平均分
-        int sumCredit = studentService.calStuCredit(stuNo);
+        Integer sumCredit = studentService.calStuCredit(stuNo);
         mv.addObject("stu", student);     //学生信息
         mv.addObject("avg", avg);         //平均分
         mv.addObject("sumCredit", sumCredit); //总学分
