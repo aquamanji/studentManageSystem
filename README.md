@@ -68,6 +68,40 @@
 
 
 
+### 网页分类：
+
+公用：
+
+index.html 登录
+
+regist.html 注册
+
+welcom.html 老师和学生的初始页面
+
+学生：
+
+checkCourse.html 查看课程
+
+checkScore.html 查看分数
+
+老师：
+
+courseList.html 查看课程列表
+
+deleteStu.html 删除学生
+
+insertStuInfo.html 插入学生信息
+
+scoreList.html 获得当前课程学生成绩信息
+
+
+
+
+
+
+
+
+
 
 #### 详细建表sql
 

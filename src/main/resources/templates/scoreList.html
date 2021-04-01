@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>layout 管理系统大布局 - Layui</title>
-    <link rel="stylesheet" href="../css/layui.css">
-    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
@@ -44,7 +44,7 @@
                         <dd><a th:href="@{/deleteStu/{pageNum}(pageNum=1)}">删除学生信息</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item  layui-nav-itemed">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">课程管理</a>
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课程</a></dd>
@@ -55,44 +55,44 @@
         </div>
     </div>
 
+
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <span>我任教的课程：</span>
+            <a th:href="@{/teachcourse/{pageNum}(pageNum=1)}"> 返回 </a>
+            <br>
+            <span>我任教的课程的学生：</span>
             <table class="table table-bordered">
-                <tr>
+                <tr >
+                    <td>学号</td>
                     <td>课程号</td>
+                    <td>开课学期</td>
+                    <td>分数</td>
                     <td>课程名</td>
-                    <td>学分</td>
-                    <td>课时</td>
-                    <td>先导课程</td>
-                    <td>是否正在选课中</td>
-                    <td>余量</td>
-                    <td>查看学生</td>
+                    <td>老师名</td>
+                    <td>修改成绩</td>
                 </tr>
-                <tr th:each="list : ${CourseList}">
-
+                <tr th:each="list : ${ScoreList}">
+                    <td th:text="${list.stuNo}"></td>
                     <td th:text="${list.courseNo}"></td>
+                    <td th:text="${list.term}"></td>
+                    <td th:text="${list.score}"></td>
                     <td th:text="${list.courseName}"></td>
-                    <td th:text="${list.credit}"></td>
-                    <td th:text="${list.courseHour}"></td>
-                    <td th:text="${list.priorCourse}"></td>
-                    <td th:text="${list.ischoosing}"></td>
-                    <td th:text="${list.volume}"></td>
-                    <td><a th:href="@{'/teachGetSource/'+${list.courseNo}+'/1'}">查看</a></td>
+                    <td th:text="${list.teaname}"></td>
+                    <td ><a class="layui-btn layui-btn-normal" th:href="@{'/getOneStudentScore/'+${list.stuNo}+'/'+${list.courseNo}}" >修改</a></td>
                 </tr>
                 <tr>
                     <td>
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">首页</a>
+                        <a th:href="@{'/teachGetSource/'+${courseNo}+'/1'}">首页</a>
                     </td>
                     <td th:if="${pageNum}!=1">
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${pageNum - 1})}">上一页</a>
+                        <a th:href="@{'/teachGetSource/'+${courseNo}+'/'+${pageNum - 1}}">上一页</a>
                     </td>
                     <td th:if="${pageNum}!=${totalPage}">
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${pageNum + 1})}">下一页</a>
+                        <a th:href="@{'/teachGetSource/'+${courseNo}+'/'+${pageNum + 1}}">下一页</a>
                     </td>
                     <td>
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${totalPage})}">尾页</a>
+                        <a th:href="@{'/teachGetSource/'+${courseNo}+'/'+${totalPage}}">尾页</a>
                     </td>
                     <td>
                         第<span th:text="${pageNum}"></span>页/<span th:text="${totalPage}"></span>页
@@ -104,13 +104,19 @@
     </div>
 
 </div>
-<script src="../layui.js"></script>
+<script  th:src="@{/layui.js}" ></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
 
     });
+
+
 </script>
 </body>
 </html>
+
+
+
+

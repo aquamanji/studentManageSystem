@@ -40,12 +40,12 @@
                         <a class="" href="javascript:;">我的</a>
                         <dl class="layui-nav-child">
                             <dd><a href="/getStuInfo">个人信息</a></dd>
-                            <dd><a th:href="@{/checkPlan/{pageNum}(pageNum=1)}">我的课表</a></dd>
+                            <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课表</a></dd>
                             <dd><a th:href="@{/getScore/{pageNum}(pageNum=1)}">我的成绩单</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;">选课</a>
+                        <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课表</a></dd>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">选课一</a></dd>
                         </dl>

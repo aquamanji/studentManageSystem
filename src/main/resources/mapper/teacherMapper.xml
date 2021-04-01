@@ -10,4 +10,27 @@
         select * from course where teachno = #{teano}
     </select>
 
+
+    <select id="queryAllScore" parameterType="String" resultType="Score">
+        select score.stuNo as stuNo,
+               score.courseNo as courseNo,
+               score.term as term,
+               score.score as score,
+               course.courseName as courseName,
+               teach.teaname as teaname
+        from score left join course on
+            score.courseNo = course.courseNo
+                   left join teach
+                             on course.teachno = teach.teano
+        where  teach.teano = #{teano} and course.courseNo = #{courseNo}
+    </select>
+
+   <update id="updateScore" parameterType="String" >
+       update score set score = #{score} where stuNo = #{stuNo} and courseNo = #{courseNo}
+   </update>
+
+
+    <select id="getOneStudentScore" parameterType="String" resultType="Score">
+        select * from score where stuNo = #{stuNo} and courseNo = #{courseNo}
+    </select>
 </mapper>

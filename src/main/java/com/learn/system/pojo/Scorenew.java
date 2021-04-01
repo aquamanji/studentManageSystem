@@ -1,32 +1,19 @@
 package com.learn.system.pojo;
 
-//这个是用于连接查询的pojo
-public class Score {
+public class Scorenew {
     String stuNo;
     String courseNo;
     String term;
     Integer score;
-    String courseName;      //这是连接课程表的课程名
-    String teaname;
 
-    public String getTeaname() {
-        return teaname;
-    }
-
-    public void setTeaname(String teaname) {
-        this.teaname = teaname;
-    }
-
-    public Score(String stuNo, String courseNo, String term, Integer score, String courseName, String teaname) {
+    public Scorenew(String stuNo, String courseNo, String term, Integer score) {
         this.stuNo = stuNo;
         this.courseNo = courseNo;
         this.term = term;
         this.score = score;
-        this.courseName = courseName;
-        this.teaname = teaname;
     }
 
-    public Score() {
+    public Scorenew() {
     }
 
     public String getStuNo() {
@@ -61,23 +48,13 @@ public class Score {
         this.score = score;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
     @Override
     public String toString() {
-        return "Score{" +
+        return "Scorenew{" +
                 "stuNo='" + stuNo + '\'' +
                 ", courseNo='" + courseNo + '\'' +
                 ", term='" + term + '\'' +
                 ", score=" + score +
-                ", courseName='" + courseName + '\'' +
-                ", teaname='" + teaname + '\'' +
                 '}';
     }
 }
