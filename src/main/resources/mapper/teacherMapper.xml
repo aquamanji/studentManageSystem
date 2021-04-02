@@ -25,7 +25,7 @@
         where  teach.teano = #{teano} and course.courseNo = #{courseNo}
     </select>
 
-   <update id="updateScore" parameterType="String" >
+   <update id="updateScore" parameterType="Score" >
        update score set score = #{score} where stuNo = #{stuNo} and courseNo = #{courseNo}
    </update>
 
@@ -33,4 +33,16 @@
     <select id="getOneStudentScore" parameterType="String" resultType="Score">
         select * from score where stuNo = #{stuNo} and courseNo = #{courseNo}
     </select>
+    
+    
+    <select id="getTermList" resultType="Term">
+        select * from term
+    </select>
+    
+    <insert id="InsertCourseInfo">
+        insert into course (courseNo,courseName,credit,courseHour,ischoosing,volume,teachno,term)values
+            (#{courseNo}, #{courseName},#{credit},#{courseHour},#{ischoosing},#{volume},#{teachno},#{term})
+    </insert>
+
+
 </mapper>

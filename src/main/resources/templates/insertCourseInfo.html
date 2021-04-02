@@ -36,7 +36,7 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">学生管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/insertClass">添加班级信息</a></dd>
@@ -44,11 +44,11 @@
                         <dd><a th:href="@{/deleteStu/{pageNum}(pageNum=1)}">删除学生信息</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item  layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a href="javascript:;">课程管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课程</a></dd>
-                        <dd><a href="javascript:;">课程发布</a></dd>
+                        <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课表</a></dd>
+                        <dd><a href="javascript:;">发表删除</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -58,51 +58,43 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <span>我任教的课程：</span>
-            <table class="table table-bordered">
-                <tr>
-                    <td>课程号</td>
-                    <td>课程名</td>
-                    <td>学分</td>
-                    <td>课时</td>
-                    <td>是否正在选课中</td>
-                    <td>余量</td>
-                    <td>查看学生</td>
-                </tr>
-                <tr th:each="list : ${CourseList}">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <span th:if="${success}==0">课程号重复，写入数据失败</span>
+                    <span th:if="${success}==1">写入数据成功</span>
+                    <form action="/InsertCourseInfo" method="POST">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>课程号：<input type="text" class="form-control"  name="courseNo" placeholder="请输入课程号"></td>
+                                <td>课程名：<input type="text" class="form-control"  name="courseName" placeholder="请输入课程名"></td>
 
-                    <td th:text="${list.courseNo}"></td>
-                    <td th:text="${list.courseName}"></td>
-                    <td th:text="${list.credit}"></td>
-                    <td th:text="${list.courseHour}"></td>
-                    <td th:text="${list.ischoosing}"></td>
-                    <td th:text="${list.volume}"></td>
-                    <td><a th:href="@{'/teachGetSource/'+${list.courseNo}+'/1'}">查看</a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">首页</a>
-                    </td>
-                    <td th:if="${pageNum}!=1">
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${pageNum - 1})}">上一页</a>
-                    </td>
-                    <td th:if="${pageNum}!=${totalPage}">
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${pageNum + 1})}">下一页</a>
-                    </td>
-                    <td>
-                        <a th:href="@{/teachcourse/{pageNum}(pageNum=${totalPage})}">尾页</a>
-                    </td>
-                    <td>
-                        第<span th:text="${pageNum}"></span>页/<span th:text="${totalPage}"></span>页
-                    </td>
-                </tr>
-            </table>
-
+                            </tr>
+                            <tr>
+                                <td>学分：<input type="text" class="form-control"  name="credit" placeholder="请输入学分"></td>
+                                <td>课时：<input type="text" class="form-control"  name="courseHour" placeholder="请输入课时"></td>
+                            </tr>
+                            <tr>
+                                <td>人数：
+                                    <input type="text" class="form-control"  name="volume" placeholder="请输入课程人数">
+                                </td>
+                                <td>学期：
+                                    <select class="form-control" name = "term" >
+                                        <option th:each="list : ${TermList}" th:value="${list.term}" th:text="${list.term}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <button type="submit"  class="btn btn-primary">插入</button>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
         </div>
     </div>
 
 </div>
-<script src="../layui.js"></script>
+<script src="./layui.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){

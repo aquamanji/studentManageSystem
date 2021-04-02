@@ -6,20 +6,28 @@ public class Course {
     String courseName;
     int credit;
     int courseHour;
-    String priorCourse;
     int ischoosing;
     int volume;
     String teachno;
+    String term;
 
-    public Course(String courseNo, String courseName, int credit, int courseHour, String priorCourse, int ischoosing, int volume, String teachno) {
+    public Course(String courseNo, String courseName, int credit, int courseHour, int ischoosing, int volume, String teachno, String term) {
         this.courseNo = courseNo;
         this.courseName = courseName;
         this.credit = credit;
         this.courseHour = courseHour;
-        this.priorCourse = priorCourse;
         this.ischoosing = ischoosing;
         this.volume = volume;
         this.teachno = teachno;
+        this.term = term;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
     }
 
     public String getTeachno() {
@@ -82,13 +90,7 @@ public class Course {
         this.courseHour = courseHour;
     }
 
-    public String getPriorCourse() {
-        return priorCourse;
-    }
 
-    public void setPriorCourse(String priorCourse) {
-        this.priorCourse = priorCourse;
-    }
 
     @Override
     public String toString() {
@@ -97,7 +99,6 @@ public class Course {
                 ", courseName='" + courseName + '\'' +
                 ", credit=" + credit +
                 ", courseHour=" + courseHour +
-                ", priorCourse='" + priorCourse + '\'' +
                 ", ischoosing=" + ischoosing +
                 ", volume=" + volume +
                 '}';

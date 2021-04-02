@@ -3,6 +3,7 @@ package com.learn.system.service;
 import com.learn.system.pojo.Course;
 import com.learn.system.pojo.Score;
 import com.learn.system.pojo.Student;
+import com.learn.system.pojo.Term;
 import org.apache.ibatis.annotations.Param;
 
 import javax.xml.transform.Source;
@@ -30,5 +31,11 @@ public interface TeacherService {
 
     //获取单个学生信息
     Score getOneStudentScore(String stuNo, String courseNo);
+
+    //获取学期信息
+    List<Term> getTermList();
+
+    //插入课程表
+    void InsertCourseInfo(Course course);
 
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2021-03-31 17:08:01
+Date: 2021-04-02 17:29:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,7 +55,7 @@ CREATE TABLE `class` (
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO `class` VALUES ('20011', '通信201', '通信学院', '1', '4');
+INSERT INTO `class` VALUES ('20011', '通信201', '通信学院', '1', '5');
 
 -- ----------------------------
 -- Table structure for course
@@ -66,22 +66,23 @@ CREATE TABLE `course` (
   `courseName` varchar(20) NOT NULL,
   `credit` int NOT NULL,
   `courseHour` int NOT NULL,
-  `priorCourse` varchar(20) NOT NULL,
   `ischoosing` int NOT NULL,
   `volume` int NOT NULL,
   `teachno` varchar(255) NOT NULL,
+  `term` varchar(255) NOT NULL,
   PRIMARY KEY (`courseNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('ke-001', '高等数学', '4', '60', 'null', '0', '0', 'smw');
-INSERT INTO `course` VALUES ('ke-002', '线性代数', '4', '60', 'null', '0', '0', 'smw');
-INSERT INTO `course` VALUES ('ke-003', '通信原理', '4', '60', '高等数学', '0', '0', 'smw');
-INSERT INTO `course` VALUES ('ke-004', '电子技术基础', '4', '60', '高等数学', '0', '0', 'smw');
-INSERT INTO `course` VALUES ('ke-005', '电工学', '4', '60', '高等数学', '0', '0', 'smw');
-INSERT INTO `course` VALUES ('ke-006', '自动控制原理', '4', '60', '高等数学', '0', '0', 'smw');
+INSERT INTO `course` VALUES ('ke-001', '高等数学', '4', '60', '0', '0', 'smw', '2020年春季学期');
+INSERT INTO `course` VALUES ('ke-002', '线性代数', '4', '60', '0', '0', 'smw', '2020年春季学期');
+INSERT INTO `course` VALUES ('ke-003', '通信原理', '4', '60', '0', '0', 'smw', '2020年春季学期');
+INSERT INTO `course` VALUES ('ke-004', '电子技术基础', '4', '60', '0', '0', 'smw', '2020年春季学期');
+INSERT INTO `course` VALUES ('ke-005', '电工学', '4', '60', '0', '0', 'smw', '2020年春季学期');
+INSERT INTO `course` VALUES ('ke-006', '自动控制原理', '4', '60', '0', '0', 'smw', '2020年春季学期');
+INSERT INTO `course` VALUES ('ke-007', '二次元研究', '10', '6', '0', '50', 'smw', '2021年夏季学期');
 
 -- ----------------------------
 -- Table structure for score
@@ -91,15 +92,15 @@ CREATE TABLE `score` (
   `stuNo` char(10) NOT NULL,
   `courseNo` char(10) NOT NULL,
   `term` varchar(10) NOT NULL,
-  `score` int NOT NULL,
+  `score` int DEFAULT NULL,
   PRIMARY KEY (`stuNo`,`courseNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('20066', 'ke-001', '2020年春季学期', '80');
-INSERT INTO `score` VALUES ('20066', 'ke-002', '2020年春季学期', '88');
+INSERT INTO `score` VALUES ('20066', 'ke-001', '2020年春季学期', '100');
+INSERT INTO `score` VALUES ('20066', 'ke-002', '2020年春季学期', '100');
 INSERT INTO `score` VALUES ('20066', 'ke-003', '2020年春季学期', '88');
 INSERT INTO `score` VALUES ('20066', 'ke-004', '2020年春季学期', '88');
 INSERT INTO `score` VALUES ('20066', 'ke-005', '2020年春季学期', '88');
@@ -136,6 +137,7 @@ CREATE TABLE `student` (
 -- ----------------------------
 INSERT INTO `student` VALUES ('1111', 'asd', '1', '1999-09-14', '汉', '20011');
 INSERT INTO `student` VALUES ('20066', '王兰花', '2', '2000-01-01', '汉族', '20011');
+INSERT INTO `student` VALUES ('20067', '定西为', '1', '1999-09-14', '汉', '20011');
 INSERT INTO `student` VALUES ('20068', '李子豪', '1', '2000-06-06', '汉族', '20011');
 INSERT INTO `student` VALUES ('20088', '苏梅', '2', '2000-02-12', '汉族', '20011');
 
@@ -154,3 +156,21 @@ CREATE TABLE `teach` (
 -- ----------------------------
 INSERT INTO `teach` VALUES ('dxw', '定西为');
 INSERT INTO `teach` VALUES ('smw', '邵明为');
+
+-- ----------------------------
+-- Table structure for term
+-- ----------------------------
+DROP TABLE IF EXISTS `term`;
+CREATE TABLE `term` (
+  `term` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of term
+-- ----------------------------
+INSERT INTO `term` VALUES ('2020年夏季学期');
+INSERT INTO `term` VALUES ('2020年秋季学期');
+INSERT INTO `term` VALUES ('2020年冬季学期');
+INSERT INTO `term` VALUES ('2020年春季学期');
+INSERT INTO `term` VALUES ('2021年春季学期');
+INSERT INTO `term` VALUES ('2021年夏季学期');

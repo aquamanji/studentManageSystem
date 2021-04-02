@@ -40,12 +40,12 @@
                     <a class="" href="javascript:;">我的</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/getStuInfo">个人信息</a></dd>
-                        <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课表</a></dd>
+                        <dd><a th:href="@{/checkPlan/{pageNum}(pageNum=1)}">我的培养计划</a></dd>
                         <dd><a th:href="@{/getScore/{pageNum}(pageNum=1)}">我的成绩单</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课表</a></dd>
+                    <a class="" href="javascript:;">我的</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">选课一</a></dd>
                     </dl>
@@ -63,14 +63,12 @@
                     <td>课程名</td>
                     <td>学分</td>
                     <td>课时数</td>
-                    <td>先修课程</td>
                 </tr>
                 <tr th:each="list : ${courstList}">
                     <td th:text="${list.courseNo}"></td>
                     <td th:text="${list.courseName}"></td>
                     <td th:text="${list.credit}"></td>
                     <td th:text="${list.courseHour}"></td>
-                    <td th:text="${list.priorCourse}"></td>
                 </tr>
                 <!--下面是进行翻页的控件-->
                 <tr>

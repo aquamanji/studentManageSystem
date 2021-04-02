@@ -40,12 +40,12 @@
                         <a class="" href="javascript:;">我的</a>
                         <dl class="layui-nav-child">
                             <dd><a href="/getStuInfo">个人信息</a></dd>
-                            <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课表</a></dd>
+                            <dd><a th:href="@{/checkPlan/{pageNum}(pageNum=1)}">我的培养计划</a></dd>
                             <dd><a th:href="@{/getScore/{pageNum}(pageNum=1)}">我的成绩单</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课表</a></dd>
+                        <a class="" href="javascript:;">我的</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">选课一</a></dd>
                         </dl>
@@ -142,7 +142,7 @@
                     <a href="javascript:;">课程管理</a>
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/teachcourse/{pageNum}(pageNum=1)}">我的课程</a></dd>
-                        <dd><a href="javascript:;">课程发布</a></dd>
+                        <dd><a th:href="@{/toInsertCourseInfo}">课程发布</a></dd>
                     </dl>
                 </li>
             </ul>

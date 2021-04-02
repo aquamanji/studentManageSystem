@@ -5,6 +5,7 @@ import com.learn.system.mapper.TeacherMapper;
 import com.learn.system.pojo.Course;
 import com.learn.system.pojo.Score;
 import com.learn.system.pojo.Student;
+import com.learn.system.pojo.Term;
 import com.learn.system.service.StudentService;
 import com.learn.system.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,11 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void updateScore(String stuNo, String courseNo, Integer score) {
-        teacherMapper.updateScore(stuNo,courseNo,score);
+        Score score1 = new Score();
+        score1.setScore(score);
+        score1.setCourseNo(courseNo);
+        score1.setStuNo(stuNo);
+        teacherMapper.updateScore(score1);
     }
 
     @Override
@@ -82,5 +87,13 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.getOneStudentScore(stuNo, courseNo);
     }
 
+    @Override
+    public List<Term> getTermList() {
+        return teacherMapper.getTermList();
+    }
 
+    @Override
+    public void InsertCourseInfo(Course course) {
+        teacherMapper.InsertCourseInfo(course);
+    }
 }

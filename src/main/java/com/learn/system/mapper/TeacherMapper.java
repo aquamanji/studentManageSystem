@@ -3,6 +3,7 @@ package com.learn.system.mapper;
 import com.learn.system.pojo.Account;
 import com.learn.system.pojo.Course;
 import com.learn.system.pojo.Score;
+import com.learn.system.pojo.Term;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -21,10 +22,16 @@ public interface TeacherMapper {
     List<Score> queryAllScore(@Param("teano") String teano,@Param("courseNo")String courseNo);
 
     //更新成绩
-    void updateScore(@Param("stuNo") String stuNo,@Param("courseNo") String courseNo,@Param("score") Integer score);
+    void updateScore(Score score);
 
     //返回单个学生的单科成绩
     Score getOneStudentScore(@Param("stuNo") String stuNo,@Param("courseNo") String courseNo);
 
+
+    //返回日期
+    List<Term> getTermList();
+
+    //插入课程表
+    void InsertCourseInfo(Course course);
 
 }
