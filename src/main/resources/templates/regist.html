@@ -62,6 +62,7 @@
                     <option>2-教师</option>
                 </select>
                 <input id="select_else" type="text" class="form-control" name="teachname" placeholder="请输入老师的名字" style="display:none">
+                <input id="select_else2" type="text" class="form-control" name="teachyqm" placeholder="请输入老师的特邀码" style="display:none">
 
             </div>
         </div>
@@ -84,10 +85,15 @@
 <script language="javascript">
 function t(obj)
 {
-if(obj.options[obj.selectedIndex].value =="2-教师")
-document.getElementById("select_else").style.display="";
-else
-document.getElementById("select_else").style.display="none";
+if(obj.options[obj.selectedIndex].value =="2-教师"){
+    document.getElementById("select_else").style.display="";
+    document.getElementById("select_else2").style.display="";
+}
+else{
+    document.getElementById("select_else").style.display="none";
+    document.getElementById("select_else2").style.display="none";
+}
+
 }
 </script>
 
