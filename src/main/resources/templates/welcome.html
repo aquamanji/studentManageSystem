@@ -151,8 +151,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">公告管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">发布公告</a></dd>
-                        <dd><a href="javascript:;">我发布的公告</a></dd>
+                        <dd><a th:href="@{/toInsertNoticeInfo}">发布公告</a></dd>
+                        <dd><a th:href="@{/getTeacherNotice/{pageNum}(pageNum=1)}">我发布的公告</a></dd>
                     </dl>
                 </li>
             </ul>

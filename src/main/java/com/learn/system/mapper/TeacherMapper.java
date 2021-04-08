@@ -1,9 +1,6 @@
 package com.learn.system.mapper;
 
-import com.learn.system.pojo.Account;
-import com.learn.system.pojo.Course;
-import com.learn.system.pojo.Score;
-import com.learn.system.pojo.Term;
+import com.learn.system.pojo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -34,4 +31,9 @@ public interface TeacherMapper {
     //插入课程表
     void InsertCourseInfo(Course course);
 
+    //插入公告
+    void InsertNoticeInfo(Notice notice);
+
+    //查找老师当前发布的公告
+    List<Notice> queryAllNoticeByTeahcer(@Param("teano") String teano);
 }

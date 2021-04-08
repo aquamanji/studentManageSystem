@@ -6,13 +6,13 @@
 
 #### 班级信息表class
 
-| 字段名    | 描述     | 数据类型    | 约束        |
-| :-------- | :------- | ----------- | ----------- |
-| classNo   | 班级编号 | char(10)    | primary key |
-| className | 班级名称 | varchar(20) | not null    |
-| institute | 所属学院 | varchar(20) | not null    |
-| grade     | 年级     | int         | not null    |
-| classNum  | 班级人数 | int         | not null    |
+| 字段名    | 描述Purchasing Department | 数据类型    | 约束        |
+| :-------- | :------------------------ | ----------- | ----------- |
+| classNo   | 班级编号                  | char(10)    | primary key |
+| className | 班级名称                  | varchar(20) | not null    |
+| institute | 所属学院                  | varchar(20) | not null    |
+| grade     | 年级                      | int         | not null    |
+| classNum  | 班级人数                  | int         | not null    |
 
 #### 学生信息表student
 

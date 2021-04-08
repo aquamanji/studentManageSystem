@@ -45,4 +45,13 @@
     </insert>
 
 
+    <insert id="InsertNoticeInfo">
+        insert into notice (teano,content,putdate)values
+        (#{teano},#{content},#{putdate})
+    </insert>
+
+    <select id="queryAllNoticeByTeahcer" parameterType="String" resultType="Notice">
+        select * from notice where teano = #{teano}
+    </select>
+
 </mapper>

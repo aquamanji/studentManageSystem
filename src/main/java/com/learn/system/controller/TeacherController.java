@@ -1,10 +1,7 @@
 package com.learn.system.controller;
 
 import com.learn.system.mapper.TeacherMapper;
-import com.learn.system.pojo.ClassInfo;
-import com.learn.system.pojo.Course;
-import com.learn.system.pojo.Score;
-import com.learn.system.pojo.Student;
+import com.learn.system.pojo.*;
 import com.learn.system.service.TeacherService;
 import com.learn.system.service.serviceImpl.StudentServiceImpl;
 import com.learn.system.service.serviceImpl.TeacherServiceImpl;
@@ -15,7 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -176,6 +179,61 @@ public class TeacherController {
     }
 
 
+    //去公告插入页面
+    @RequestMapping(value="/toInsertNoticeInfo", method = RequestMethod.GET)
+    public ModelAndView toInsertNoticeInfo(
+            ModelAndView mv, HttpSession session){
+
+        mv.addObject("userType", session.getAttribute("userType"));
+        mv.addObject("userName", session.getAttribute("stuNo"));
+        mv.setViewName("insertNoticeInfo");
+        return mv;
+    }
+    //公告插入
+    @RequestMapping(value="/InsertNoticeInfo", method = RequestMethod.POST)
+    public ModelAndView InsertNoticeInfo(
+            @RequestParam("content")String content,
+            ModelAndView mv, HttpSession session){
+        String teachno =  (String)session.getAttribute("stuNo");
+        java.sql.Date time= new java.sql.Date(new java.util.Date().getTime());
+        Notice notice = new Notice();
+        notice.setContent(content);
+        notice.setTeano(teachno);
+        notice.setPutdate(time);
+        teacherService.InsertNoticeInfo(notice);
+        mv.addObject("userType", session.getAttribute("userType"));
+        mv.addObject("userName", session.getAttribute("stuNo"));
+        mv.addObject("success", 1);
+        mv.setViewName("insertNoticeInfo");
+        return mv;
+
+    }
+
+    //查询老師公告
+    @RequestMapping(value="/getTeacherNotice/{pageNum}", method = RequestMethod.GET)
+    public ModelAndView getTeacherNotice(@PathVariable("pageNum")int pageNum,
+                                    ModelAndView mv, HttpSession session){
+        mv.addObject("userType", session.getAttribute("userType"));
+        mv.addObject("userName", session.getAttribute("stuNo"));
+        String teano = (String)session.getAttribute("stuNo");
+        int offset = 5;     //每页显示的数量
+        int total = teacherService.queryAllNoticeByTeahcer(teano).size(); //学生信息总数
+        int totalPage = total/offset;
+        if(total%offset !=0){
+            totalPage++;
+        }
+        if(totalPage == 0){
+            totalPage=1;
+        }
+        mv.addObject("totalPage", totalPage);
+        mv.addObject("pageNum", pageNum);
+        List<Notice> NoticeList = new ArrayList<Notice>();
+        NoticeList = teacherService.querysomeNoticeByTeahcer(teacherService.queryAllNoticeByTeahcer(teano),
+                pageNum, offset);
+        mv.addObject("NoticeList", NoticeList);
+        mv.setViewName("teacherNoticeList");
+        return mv;
+    }
 
 
 

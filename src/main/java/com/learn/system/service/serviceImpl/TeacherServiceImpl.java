@@ -2,10 +2,7 @@ package com.learn.system.service.serviceImpl;
 
 import com.learn.system.mapper.StudentMapper;
 import com.learn.system.mapper.TeacherMapper;
-import com.learn.system.pojo.Course;
-import com.learn.system.pojo.Score;
-import com.learn.system.pojo.Student;
-import com.learn.system.pojo.Term;
+import com.learn.system.pojo.*;
 import com.learn.system.service.StudentService;
 import com.learn.system.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +92,34 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void InsertCourseInfo(Course course) {
         teacherMapper.InsertCourseInfo(course);
+    }
+
+    @Override
+    public void InsertNoticeInfo(Notice notice) {
+        teacherMapper.InsertNoticeInfo(notice);
+    }
+
+    @Override
+    public List<Notice> queryAllNoticeByTeahcer(String teano) {
+        return teacherMapper.queryAllNoticeByTeahcer(teano);
+    }
+
+    @Override
+    public List<Notice> querysomeNoticeByTeahcer(List<Notice> NoticeList, int pageNum, int offset) {
+        List<Notice> list = new ArrayList<Notice>();    //pageNum是从0开始的
+        int num = (pageNum-1)*offset;   //需要略过的课程数
+        int cnt = 0;        //记录添加的数量
+        for(Notice li : NoticeList){
+            if(num!=0){
+                num--;
+                continue;
+            }
+            list.add(li);
+            cnt++;
+            if(cnt == offset){
+                return list;
+            }
+        }
+        return list;    //这里是数量不足offset的时候的返回值
     }
 }
