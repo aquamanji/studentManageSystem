@@ -51,7 +51,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a class="" href="javascript:;">公告</a>
+                    <a class="" th:href="@{/getStudentNotice/{pageNum}(pageNum=1)}">公告</a>
                 </li>
 
             </ul>
@@ -67,34 +67,27 @@
                     <td>内容</td>
                     <td>发布日期</td>
                     <td>教师</td>
-                    <td>详情</td>
                 </tr>
-<!--                <tr th:each="list : ${courstList}">-->
-<!--                    <td th:text="${list.courseNo}"></td>-->
-<!--                    <td th:text="${list.courseName}"></td>-->
-<!--                    <td th:text="${list.credit}"></td>-->
-<!--                    <td th:text="${list.courseHour}"></td>-->
-<!--                </tr>-->
-                <tr>
-                    <td>1</td>
-                    <td>近日我们学校发生了一起严重的交通事故，请大家引以为戒..</td>
-                    <td>2021.03.28</td>
-                    <td>邵明为</td>
-                    <td><a href="www.baidu.com">详情</a></td>
+                <tr th:each="list : ${NoticeList}">
+                    <td th:text="${list.id}"></td>
+                    <td th:text="${list.content}"></td>
+                    <td th:text="${list.putdate}"></td>
+                    <td th:text="${list.teano}"></td>
                 </tr>
+
                 <!--下面是进行翻页的控件-->
                 <tr>
                     <td>
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=1)}">首页</a>
+                        <a th:href="@{/getStudentNotice/{pageNum}(pageNum=1)}">首页</a>
                     </td>
                     <td th:if="${pageNum}!=1">
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=${pageNum}-1)}">上一页</a>
+                        <a th:href="@{/getStudentNotice/{pageNum}(pageNum=${pageNum}-1)}">上一页</a>
                     </td>
                     <td th:if="${pageNum}!=${totalPage}">
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=${pageNum}+1)}">下一页</a>
+                        <a th:href="@{/getStudentNotice/{pageNum}(pageNum=${pageNum}+1)}">下一页</a>
                     </td>
                     <td>
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=${totalPage})}">尾页</a>
+                        <a th:href="@{/getStudentNotice/{pageNum}(pageNum=${totalPage})}">尾页</a>
                     </td>
                     <td>
                         第<span th:text="${pageNum}"></span>页/<span th:text="${totalPage}"></span>页

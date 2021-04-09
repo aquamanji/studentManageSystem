@@ -122,4 +122,9 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return list;    //这里是数量不足offset的时候的返回值
     }
+
+    @Override
+    public List<Notice> queryAllNotice() {
+        return teacherMapper.queryAllNotice();
+    }
 }

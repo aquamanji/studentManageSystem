@@ -36,4 +36,7 @@ public interface TeacherMapper {
 
     //查找老师当前发布的公告
     List<Notice> queryAllNoticeByTeahcer(@Param("teano") String teano);
+
+    //查找所有老师发布公告
+    List<Notice> queryAllNotice();
 }

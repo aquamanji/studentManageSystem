@@ -235,6 +235,29 @@ public class TeacherController {
         return mv;
     }
 
-
+    //查询老師公告
+    @RequestMapping(value="/getStudentNotice/{pageNum}", method = RequestMethod.GET)
+    public ModelAndView getStudentNotice(@PathVariable("pageNum")int pageNum,
+                                         ModelAndView mv, HttpSession session){
+        mv.addObject("userType", session.getAttribute("userType"));
+        mv.addObject("userName", session.getAttribute("stuNo"));
+        int offset = 5;     //每页显示的数量
+        int total = teacherService.queryAllNotice().size(); //学生信息总数
+        int totalPage = total/offset;
+        if(total%offset !=0){
+            totalPage++;
+        }
+        if(totalPage == 0){
+            totalPage=1;
+        }
+        mv.addObject("totalPage", totalPage);
+        mv.addObject("pageNum", pageNum);
+        List<Notice> NoticeList = new ArrayList<Notice>();
+        NoticeList = teacherService.querysomeNoticeByTeahcer(teacherService.queryAllNotice(),
+                pageNum, offset);
+        mv.addObject("NoticeList", NoticeList);
+        mv.setViewName("noticeList");
+        return mv;
+    }
 
 }

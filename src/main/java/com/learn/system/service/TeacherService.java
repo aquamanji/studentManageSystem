@@ -44,5 +44,6 @@ public interface TeacherService {
     //查找老师当前发布的部分公告
     List<Notice> querysomeNoticeByTeahcer(List<Notice> NoticeList, int pageNum, int offset);
 
-
+    //查找老师发布的所有公告
+    List<Notice> queryAllNotice();
 }
