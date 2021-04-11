@@ -36,7 +36,7 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">我的信息</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/getStuInfo">个人信息</a></dd>
@@ -44,10 +44,10 @@
                         <dd><a th:href="@{/getScore/{pageNum}(pageNum=1)}">我的成绩单</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">我的选课</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">选课</a></dd>
+                        <dd><a th:href="@{/SelectCourse/{pageNum}(pageNum=1)}">选课</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -71,20 +71,14 @@
                     <td>剩余</td>
                     <td>选课</td>
                 </tr>
-<!--                <tr th:each="list : ${courstList}">-->
-<!--                    <td th:text="${list.courseNo}"></td>-->
-<!--                    <td th:text="${list.courseName}"></td>-->
-<!--                    <td th:text="${list.credit}"></td>-->
-<!--                    <td th:text="${list.courseHour}"></td>-->
-<!--                </tr>-->
-                <tr>
-                    <td>ke-007</td>
-                    <td>二次元研究</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>邵明为</td>
-                    <td>40</td>
-                    <td><a href="www.baidu.com">选课</a></td>
+                <tr th:each="list : ${courstList}">
+                    <td th:text="${list.courseNo}"></td>
+                    <td th:text="${list.courseName}"></td>
+                    <td th:text="${list.credit}"></td>
+                    <td th:text="${list.courseHour}"></td>
+                    <td th:text="${list.teachno}"></td>
+                    <td th:text="${list.volume}"></td>
+                    <td th:text="选课"></td>
                 </tr>
                 <!--下面是进行翻页的控件-->
                 <tr>

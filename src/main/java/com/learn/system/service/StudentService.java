@@ -32,4 +32,7 @@ public interface StudentService {
     //分页查找学生成绩
     List<Score> querySomeScore(List<Score> scoreList, int pageNum, int offset);
 
+    //返回可查询课程
+    List<Course> queryAllIsOpen();
+
 }

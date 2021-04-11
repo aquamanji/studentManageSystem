@@ -209,7 +209,7 @@ public class TeacherController {
 
     }
 
-    //查询老師公告
+    //查询老師本人发布的公告
     @RequestMapping(value="/getTeacherNotice/{pageNum}", method = RequestMethod.GET)
     public ModelAndView getTeacherNotice(@PathVariable("pageNum")int pageNum,
                                     ModelAndView mv, HttpSession session){
@@ -235,7 +235,7 @@ public class TeacherController {
         return mv;
     }
 
-    //查询老師公告
+    //查询老師发布公告
     @RequestMapping(value="/getStudentNotice/{pageNum}", method = RequestMethod.GET)
     public ModelAndView getStudentNotice(@PathVariable("pageNum")int pageNum,
                                          ModelAndView mv, HttpSession session){
@@ -259,5 +259,8 @@ public class TeacherController {
         mv.setViewName("noticeList");
         return mv;
     }
+
+    //查询老师的名字
+
 
 }

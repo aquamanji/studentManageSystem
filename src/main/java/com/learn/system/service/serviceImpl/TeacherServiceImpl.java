@@ -127,4 +127,9 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Notice> queryAllNotice() {
         return teacherMapper.queryAllNotice();
     }
+
+    @Override
+    public Teach getTeacher(String teano) {
+        return teacherMapper.getTeacher(teano);
+    }
 }

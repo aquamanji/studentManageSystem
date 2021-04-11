@@ -5,6 +5,10 @@
 <mapper namespace="com.learn.system.mapper.TeacherMapper">
 
 
+    <select id="getTeacher" parameterType="String" resultType="Teach">
+        select * from teach where teano = #{teano}
+    </select>
+
 
     <select id="queryAllCourse" parameterType="String" resultType="Course">
         select * from course where teachno = #{teano}
@@ -57,5 +61,7 @@
     <select id="queryAllNotice" parameterType="String" resultType="Notice">
         select * from notice
     </select>
+
+
 
 </mapper>

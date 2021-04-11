@@ -35,5 +35,16 @@ public interface StudentMapper {
     //查找学生所有成绩
     List<Score> queryAllScore(String stuNo);
 
+    //选课列表
+    List<Course> queryAllIsOpen();
+
+
+
+
+
+
+
+
+
 
 }

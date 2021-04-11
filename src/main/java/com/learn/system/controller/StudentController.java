@@ -67,7 +67,7 @@ public class StudentController {
 //        System.out.println(courseList);
         return mv;
     }
-
+    //分数
     @RequestMapping(value = "/getScore/{pageNum}", method = RequestMethod.GET)
     public ModelAndView getScore(@PathVariable("pageNum")int pageNum,
                                  ModelAndView mv, HttpSession session){
@@ -93,4 +93,36 @@ public class StudentController {
         mv.setViewName("checkScore");
         return mv;
     }
+
+    //可查询课程
+
+
+    @RequestMapping(value="/SelectCourse/{pageNum}", method = RequestMethod.GET)
+    public ModelAndView SelectCourse(@PathVariable("pageNum")int pageNum,
+                                  ModelAndView mv, HttpSession session){
+        int offset = 5;
+        mv.addObject("userType", session.getAttribute("userType"));
+        mv.addObject("userName",session.getAttribute("stuNo") );
+        List<Course> courseList = new ArrayList<Course>();
+        int cnt = 0;        //记录总的结果条数
+        courseList = studentService.querySomeCourse(studentService.queryAllIsOpen(),
+                pageNum, offset);
+        cnt = studentService.queryAllIsOpen().size();
+        int totalPage = cnt / offset;
+        if(cnt % offset != 0){
+            totalPage++;
+        }
+        if(totalPage == 0){
+            totalPage=1;
+        }
+        mv.addObject("totalPage", totalPage);
+        //将当前页面号返回给前端
+        mv.addObject("pageNum", pageNum);
+        mv.addObject("courstList", courseList);
+        mv.setViewName("selcetCourse");
+        return mv;
+    }
+
+
+
 }

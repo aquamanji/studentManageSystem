@@ -96,4 +96,9 @@ public class StudentServiceImpl implements StudentService {
         return list;    //这里是数量不足offset的时候的返回值
     }
 
+
+    @Override
+    public List<Course> queryAllIsOpen() {
+        return studentMapper.queryAllIsOpen();
+    }
 }

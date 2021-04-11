@@ -39,4 +39,12 @@ public interface TeacherMapper {
 
     //查找所有老师发布公告
     List<Notice> queryAllNotice();
+
+    //查询单个老师
+    Teach getTeacher(@Param("teano")String teano);
+
+    //查询单个课程
+    Course getCourse(@Param("courseNo")String courseNo);
+
+
 }

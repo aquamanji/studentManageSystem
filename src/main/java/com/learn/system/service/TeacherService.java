@@ -46,4 +46,10 @@ public interface TeacherService {
 
     //查找老师发布的所有公告
     List<Notice> queryAllNotice();
+
+    //查找老师的信息
+    Teach getTeacher(String teano);
+
+    //查询单个课程
+    Course getCourse(String courseNo);
 }

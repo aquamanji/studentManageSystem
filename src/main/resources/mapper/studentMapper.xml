@@ -44,4 +44,9 @@
                              on course.teachno = teach.teano
         where score.stuNo = #{stuNo}
     </select>
+
+
+    <select id="queryAllIsOpen" resultType="Course">
+        select * from course where ischoosing = 1
+    </select>
 </mapper>
