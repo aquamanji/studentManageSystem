@@ -132,4 +132,11 @@ public class TeacherServiceImpl implements TeacherService {
     public Teach getTeacher(String teano) {
         return teacherMapper.getTeacher(teano);
     }
+
+    @Override
+    public Course getCourse(String courseNo) {
+        return teacherMapper.getCourse(courseNo);
+    }
+
+
 }

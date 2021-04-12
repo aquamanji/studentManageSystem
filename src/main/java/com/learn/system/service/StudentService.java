@@ -3,6 +3,7 @@ package com.learn.system.service;
 import com.learn.system.pojo.Course;
 import com.learn.system.pojo.Score;
 import com.learn.system.pojo.Student;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,5 +35,8 @@ public interface StudentService {
 
     //返回可查询课程
     List<Course> queryAllIsOpen();
+
+    //返回当前学生是否选择了这门课程
+    Score getStudentscore(Score score);
 
 }

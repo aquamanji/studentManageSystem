@@ -4,6 +4,7 @@ import com.learn.system.pojo.Course;
 import com.learn.system.pojo.Score;
 import com.learn.system.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -37,6 +38,10 @@ public interface StudentMapper {
 
     //选课列表
     List<Course> queryAllIsOpen();
+
+
+    //获取当前学生是否已选本门课程
+    Score getStudentscore(@Param("stuNo") String stuNo,@Param("courseNo") String courseNo);
 
 
 

@@ -6,9 +6,7 @@ import com.learn.system.pojo.Student;
 import com.learn.system.service.serviceImpl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -95,18 +93,28 @@ public class StudentController {
     }
 
     //可查询课程
-
-
     @RequestMapping(value="/SelectCourse/{pageNum}", method = RequestMethod.GET)
     public ModelAndView SelectCourse(@PathVariable("pageNum")int pageNum,
                                   ModelAndView mv, HttpSession session){
         int offset = 5;
         mv.addObject("userType", session.getAttribute("userType"));
         mv.addObject("userName",session.getAttribute("stuNo") );
+        String Stuno = (String) session.getAttribute("stuNo");
         List<Course> courseList = new ArrayList<Course>();
         int cnt = 0;        //记录总的结果条数
         courseList = studentService.querySomeCourse(studentService.queryAllIsOpen(),
                 pageNum, offset);
+        List<String> stateList = new ArrayList<>();
+        for(Course course2 : courseList){
+            Score score2 = new Score();
+            score2.setStuNo(Stuno);
+            score2.setCourseNo(course2.getCourseNo());
+            if (studentService.getStudentscore(score2) == null){
+                stateList.add("no");
+            }else{
+                stateList.add("yes");
+            }
+        }
         cnt = studentService.queryAllIsOpen().size();
         int totalPage = cnt / offset;
         if(cnt % offset != 0){
@@ -119,10 +127,25 @@ public class StudentController {
         //将当前页面号返回给前端
         mv.addObject("pageNum", pageNum);
         mv.addObject("courstList", courseList);
+        mv.addObject("stateList", stateList);
         mv.setViewName("selcetCourse");
         return mv;
     }
 
 
+
+    @ResponseBody
+    @GetMapping("/test")
+    public String test(){
+        Score score = new Score();
+        score.setCourseNo("ke-001");
+        score.setStuNo("20067");
+        Score score1 = studentService.getStudentscore(score);
+        if (score1 == null){
+            return "0";
+        }
+        System.out.println(score1);
+        return score1.toString();
+    }
 
 }

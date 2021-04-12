@@ -1,5 +1,11 @@
 package com.learn.system.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TeacherAndScoreAndCourse {
 
     String courseNo;
@@ -11,4 +17,6 @@ public class TeacherAndScoreAndCourse {
     String teaname;
     String term;
     String stuNo;
+
+
 }

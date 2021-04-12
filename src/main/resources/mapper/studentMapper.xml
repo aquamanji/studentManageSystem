@@ -49,4 +49,10 @@
     <select id="queryAllIsOpen" resultType="Course">
         select * from course where ischoosing = 1
     </select>
+
+
+
+    <select id="getStudentscore"  parameterType="Score" resultType="Score" >
+        select * from score where stuNo = #{stuNo} and courseNo = #{courseNo}
+    </select>
 </mapper>

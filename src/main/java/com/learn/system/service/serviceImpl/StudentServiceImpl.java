@@ -101,4 +101,9 @@ public class StudentServiceImpl implements StudentService {
     public List<Course> queryAllIsOpen() {
         return studentMapper.queryAllIsOpen();
     }
+
+    @Override
+    public Score getStudentscore(Score score) {
+        return studentMapper.getStudentscore(score.getStuNo(),score.getCourseNo());
+    }
 }
