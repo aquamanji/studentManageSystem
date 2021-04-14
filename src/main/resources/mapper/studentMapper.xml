@@ -55,4 +55,22 @@
     <select id="getStudentscore"  parameterType="Score" resultType="Score" >
         select * from score where stuNo = #{stuNo} and courseNo = #{courseNo}
     </select>
+
+    <insert id="insertStudentScore" parameterType="Teach">
+        insert into score (stuNo,courseNo,term) values
+                            (#{stuNo}, #{courseNo},#{term})
+    </insert>
+
+
+    <update id="updateCourseVolumeAdd" parameterType="String">
+            update course set volume = volume-1
+    where volume in ( select a.volume from (select volume from course where courseNo = #{courseNo}) a);
+    </update>
+
+
+    <select id="getCourseVolume" parameterType="String" resultType="int">
+            select  volume  from course where courseNo = #{courseNo}
+    </select>
+
+
 </mapper>

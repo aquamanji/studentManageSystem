@@ -110,9 +110,9 @@ public class StudentController {
             score2.setStuNo(Stuno);
             score2.setCourseNo(course2.getCourseNo());
             if (studentService.getStudentscore(score2) == null){
-                stateList.add("no");
+                stateList.add("1");
             }else{
-                stateList.add("yes");
+                stateList.add("0");
             }
         }
         cnt = studentService.queryAllIsOpen().size();
@@ -134,18 +134,19 @@ public class StudentController {
 
 
 
+
+
+
     @ResponseBody
     @GetMapping("/test")
     public String test(){
-        Score score = new Score();
-        score.setCourseNo("ke-001");
-        score.setStuNo("20067");
-        Score score1 = studentService.getStudentscore(score);
-        if (score1 == null){
-            return "0";
-        }
-        System.out.println(score1);
-        return score1.toString();
+       if(studentService.getCourseVolume("ke-007")>0){
+           studentService.insertStudentScore("20066","ke-007","2021年夏季学期");
+           studentService.updateCourseVolumeAdd("ke-007");
+           return "cg";
+       }else {
+           return "shibai";
+       }
     }
 
 }

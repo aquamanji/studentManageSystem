@@ -78,7 +78,12 @@
                     <td th:text="${list.courseHour}"></td>
                     <td th:text="${list.teachno}"></td>
                     <td th:text="${list.volume}"></td>
-                    <td th:text="${stateList.get(listStat.index)}"></td>
+                    <td th:if="${stateList.get(listStat.index)}==1">
+                        <a>可以选择</a>
+                    </td>
+                    <td th:if="${stateList.get(listStat.index)}==0">
+                        <a></a>
+                    </td>
                 </tr>
                 <!--下面是进行翻页的控件-->
                 <tr>

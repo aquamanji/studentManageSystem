@@ -106,4 +106,20 @@ public class StudentServiceImpl implements StudentService {
     public Score getStudentscore(Score score) {
         return studentMapper.getStudentscore(score.getStuNo(),score.getCourseNo());
     }
+
+    @Override
+    public void insertStudentScore(String stuNo, String courseNo, String term) {
+        studentMapper.insertStudentScore(stuNo, courseNo, term);
+    }
+
+    @Override
+    public void updateCourseVolumeAdd(String courseNo) {
+            studentMapper.updateCourseVolumeAdd(courseNo);
+    }
+
+    @Override
+    public int getCourseVolume(String courseNo) {
+
+        return studentMapper.getCourseVolume(courseNo);
+    }
 }

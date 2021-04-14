@@ -43,7 +43,15 @@ public interface StudentMapper {
     //获取当前学生是否已选本门课程
     Score getStudentscore(@Param("stuNo") String stuNo,@Param("courseNo") String courseNo);
 
+    //添加课程
+    void insertStudentScore(@Param("stuNo") String stuNo,@Param("courseNo") String courseNo,@Param("term") String term);
 
+
+    //修改课程余量
+    void updateCourseVolumeAdd(@Param("courseNo") String courseNo);
+
+    //返回课程余量
+    int getCourseVolume(@Param("courseNo")String courseNo);
 
 
 
