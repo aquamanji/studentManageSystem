@@ -134,6 +134,51 @@ public class StudentController {
 
 
 
+    //选择课程
+    @RequestMapping(value="/SelectCourse", method = RequestMethod.POST)
+    public ModelAndView SelectCourse(
+                                @RequestParam("stuName") String stuName,
+
+                                     ModelAndView mv, HttpSession session){
+        int offset = 5;
+        mv.addObject("userType", session.getAttribute("userType"));
+        mv.addObject("userName",session.getAttribute("stuNo") );
+        String Stuno = (String) session.getAttribute("stuNo");
+
+        List<Course> courseList = new ArrayList<Course>();
+        int cnt = 0;        //记录总的结果条数
+        courseList = studentService.querySomeCourse(studentService.queryAllIsOpen(),
+                pageNum, offset);
+        List<String> stateList = new ArrayList<>();
+        for(Course course2 : courseList){
+            Score score2 = new Score();
+            score2.setStuNo(Stuno);
+            score2.setCourseNo(course2.getCourseNo());
+            if (studentService.getStudentscore(score2) == null){
+                stateList.add("1");
+            }else{
+                stateList.add("0");
+            }
+        }
+        cnt = studentService.queryAllIsOpen().size();
+        int totalPage = cnt / offset;
+        if(cnt % offset != 0){
+            totalPage++;
+        }
+        if(totalPage == 0){
+            totalPage=1;
+        }
+        mv.addObject("totalPage", totalPage);
+        //将当前页面号返回给前端
+        mv.addObject("pageNum", pageNum);
+        mv.addObject("courstList", courseList);
+        mv.addObject("stateList", stateList);
+        mv.setViewName("selcetCourse");
+        return mv;
+    }
+
+
+
 
 
 
