@@ -135,16 +135,22 @@ public class StudentController {
 
 
     //选择课程
-    @RequestMapping(value="/SelectCourse", method = RequestMethod.POST)
-    public ModelAndView SelectCourse(
-                                @RequestParam("stuName") String stuName,
-
+    @RequestMapping(value="/SelectoCourse", method = RequestMethod.POST)
+    public ModelAndView SelectoCourse(@RequestParam("courseNo")String courseNo,
+                                      @RequestParam("term")String term,
+                                      @RequestParam("pageNum")int pageNum,
                                      ModelAndView mv, HttpSession session){
         int offset = 5;
         mv.addObject("userType", session.getAttribute("userType"));
         mv.addObject("userName",session.getAttribute("stuNo") );
         String Stuno = (String) session.getAttribute("stuNo");
-
+        if(studentService.getCourseVolume(courseNo)>0){
+            studentService.insertStudentScore(Stuno,courseNo,term);
+            studentService.updateCourseVolumeAdd(courseNo);
+            mv.addObject("writestate",1);
+        }else {
+            mv.addObject("writestate",0);
+        }
         List<Course> courseList = new ArrayList<Course>();
         int cnt = 0;        //记录总的结果条数
         courseList = studentService.querySomeCourse(studentService.queryAllIsOpen(),
@@ -176,6 +182,52 @@ public class StudentController {
         mv.setViewName("selcetCourse");
         return mv;
     }
+
+    //取消课程
+    @RequestMapping(value="/deletetoCourse", method = RequestMethod.POST)
+    public ModelAndView deletetoCourse(@RequestParam("courseNo")String courseNo,
+                                      @RequestParam("term")String term,
+                                      @RequestParam("pageNum")int pageNum,
+                                      ModelAndView mv, HttpSession session){
+        int offset = 5;
+        mv.addObject("userType", session.getAttribute("userType"));
+        mv.addObject("userName",session.getAttribute("stuNo") );
+        String Stuno = (String) session.getAttribute("stuNo");
+            studentService.deleteStudentScore(Stuno,courseNo,term);
+            studentService.updateCourseVolumeRealAdd(courseNo);
+            mv.addObject("writestate",3);
+        List<Course> courseList = new ArrayList<Course>();
+        int cnt = 0;        //记录总的结果条数
+        courseList = studentService.querySomeCourse(studentService.queryAllIsOpen(),
+                pageNum, offset);
+        List<String> stateList = new ArrayList<>();
+        for(Course course2 : courseList){
+            Score score2 = new Score();
+            score2.setStuNo(Stuno);
+            score2.setCourseNo(course2.getCourseNo());
+            if (studentService.getStudentscore(score2) == null){
+                stateList.add("1");
+            }else{
+                stateList.add("0");
+            }
+        }
+        cnt = studentService.queryAllIsOpen().size();
+        int totalPage = cnt / offset;
+        if(cnt % offset != 0){
+            totalPage++;
+        }
+        if(totalPage == 0){
+            totalPage=1;
+        }
+        mv.addObject("totalPage", totalPage);
+        //将当前页面号返回给前端
+        mv.addObject("pageNum", pageNum);
+        mv.addObject("courstList", courseList);
+        mv.addObject("stateList", stateList);
+        mv.setViewName("selcetCourse");
+        return mv;
+    }
+
 
 
 

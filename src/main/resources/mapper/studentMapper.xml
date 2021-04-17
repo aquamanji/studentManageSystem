@@ -72,5 +72,14 @@
             select  volume  from course where courseNo = #{courseNo}
     </select>
 
+    <delete id="deleteStudentScore" parameterType="String">
+        DELETE FROM score WHERE stuNo = #{stuNo} and courseNo = #{courseNo} and term = #{term}
+    </delete>
+
+    <update id="updateCourseVolumeRealAdd" parameterType="String">
+        update course set volume = volume+1
+        where volume in ( select a.volume from (select volume from course where courseNo = #{courseNo}) a);
+    </update>
+
 
 </mapper>

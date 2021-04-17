@@ -122,4 +122,14 @@ public class StudentServiceImpl implements StudentService {
 
         return studentMapper.getCourseVolume(courseNo);
     }
+
+    @Override
+    public void updateCourseVolumeRealAdd(String courseNo) {
+        studentMapper.updateCourseVolumeRealAdd(courseNo);
+    }
+
+    @Override
+    public void deleteStudentScore(String stuNo, String courseNo, String term) {
+        studentMapper.deleteStudentScore(stuNo,courseNo,term);
+    }
 }

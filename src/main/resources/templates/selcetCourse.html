@@ -59,7 +59,9 @@
     </div>
 
     <div class="layui-body">
-
+        <p th:if="${writestate}==0">课程已满</p>
+        <p th:if="${writestate}==1">课程选择成功</p>
+        <p th:if="${writestate}==3">课程取消成功</p>
         <div style="padding: 15px;">
             <table class="table table-bordered">
                 <tr >
@@ -68,36 +70,50 @@
                     <td>学分</td>
                     <td>课时数</td>
                     <td>任教老师</td>
+                    <td>学期</td>
                     <td>剩余</td>
                     <td>选课</td>
                 </tr>
+
                 <tr th:each="list : ${courstList}">
+
                     <td th:text="${list.courseNo}"></td>
                     <td th:text="${list.courseName}"></td>
                     <td th:text="${list.credit}"></td>
                     <td th:text="${list.courseHour}"></td>
                     <td th:text="${list.teachno}"></td>
+                    <td th:text="${list.term}" name="term"></td>
                     <td th:text="${list.volume}"></td>
                     <td th:if="${stateList.get(listStat.index)}==1">
-                        <a>可以选择</a>
+                        <form th:id="'form'+${listStat.index}" action="/SelectoCourse" method="POST">
+                            <input name="courseNo" type="text" th:value="${list.courseNo}" style="display: none">
+                            <input name="pageNum" type="text" th:value="${pageNum}" style="display: none">
+                            <input name="term" type="text" th:value="${list.term}" style="display: none">
+                            <button type="submit"  class="btn btn-primary">选择</button>
+                        </form>
                     </td>
                     <td th:if="${stateList.get(listStat.index)}==0">
-                        <a></a>
+                        <form th:id="'form123'+${listStat.index}" action="/deletetoCourse" method="POST">
+                            <input name="courseNo" type="text" th:value="${list.courseNo}" style="display: none">
+                            <input name="pageNum" type="text" th:value="${pageNum}" style="display: none">
+                            <input name="term" type="text" th:value="${list.term}" style="display: none">
+                            <button type="submit"  class="btn btn-primary">取消选课</button>
+                        </form>
                     </td>
                 </tr>
                 <!--下面是进行翻页的控件-->
                 <tr>
                     <td>
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=1)}">首页</a>
+                        <a th:href="@{/SelectCourse/{pageNum}(pageNum=1)}">首页</a>
                     </td>
                     <td th:if="${pageNum}!=1">
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=${pageNum}-1)}">上一页</a>
+                        <a th:href="@{/SelectCourse/{pageNum}(pageNum=${pageNum}-1)}">上一页</a>
                     </td>
                     <td th:if="${pageNum}!=${totalPage}">
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=${pageNum}+1)}">下一页</a>
+                        <a th:href="@{/SelectCourse/{pageNum}(pageNum=${pageNum}+1)}">下一页</a>
                     </td>
                     <td>
-                        <a th:href="@{/checkPlan/{pageNum}(pageNum=${totalPage})}">尾页</a>
+                        <a th:href="@{/SelectCourse/{pageNum}(pageNum=${totalPage})}">尾页</a>
                     </td>
                     <td>
                         第<span th:text="${pageNum}"></span>页/<span th:text="${totalPage}"></span>页
@@ -106,6 +122,7 @@
             </table>
         </div>
     </div>
+
 
 </div>
 

@@ -46,9 +46,14 @@ public interface StudentMapper {
     //添加课程
     void insertStudentScore(@Param("stuNo") String stuNo,@Param("courseNo") String courseNo,@Param("term") String term);
 
+    //取消选课
+    void deleteStudentScore(@Param("stuNo") String stuNo,@Param("courseNo") String courseNo,@Param("term") String term);
 
-    //修改课程余量
+    //减少课程余量
     void updateCourseVolumeAdd(@Param("courseNo") String courseNo);
+
+    //增加课程余量
+    void updateCourseVolumeRealAdd(@Param("courseNo") String courseNo);
 
     //返回课程余量
     int getCourseVolume(@Param("courseNo")String courseNo);
